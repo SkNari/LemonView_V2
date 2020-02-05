@@ -1,5 +1,5 @@
 class myComp extends LemonComponent{
     render(){
-        return Lemon.createElement("div",null,this.name);
+        return Lemon.createElement("div",null,"Salut",this.props.name);
     }
 }
