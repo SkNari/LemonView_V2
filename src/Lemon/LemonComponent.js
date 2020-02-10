@@ -7,4 +7,10 @@ class LemonComponent{
 
     }
 
+    setProps(){
+
+        
+
+    }
+
 }
