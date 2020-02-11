@@ -13,4 +13,10 @@ class LemonComponent{
 
     }
 
+    setState(){
+
+        
+
+    }
+
 }

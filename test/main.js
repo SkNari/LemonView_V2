@@ -1,7 +1,4 @@
-var el = Lemon.createElement(myComp,{name:"toto"});
+var el = Lemon.createElement(comp2,null);
 
 
 LemonDOM.render(el,document.body);
-
-
-

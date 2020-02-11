@@ -10,7 +10,8 @@ const LemonTree = {
             } else {
                 lemComp = new LemonComponent(element.props);
             }
-            lemComp._internalFiber = LemonTree.createInternalFiber(element);
+            lemComp._internalFiber = LemonTree.createInternalFiber(element,lemComp);
+            lemComp.render();
             return lemComp;
         }
 
@@ -18,7 +19,7 @@ const LemonTree = {
 
     },
 
-    createInternalFiber: function (element) {
+    createInternalFiber: function (element,comp) {
         var children;
 
         var internalFiber = {
@@ -27,14 +28,20 @@ const LemonTree = {
             sibling: null,
             node: null,
             memorizedProps: element.props,
-            memorizedState: null,
+            memorizedState: element.state,
             pendingProps: null,
-            pendingState: null
+            pendingState: null,
+            tag: LemonTree.tagCount   
         };
+
+        LemonTree.tagCount++;
 
         if (typeof (element.type) === "function") {
 
-            internalFiber.child = this.createInternalFiber(new element.type(element.props).render());
+            var elem = comp!=null?comp:new element.type(element.props);
+            elem._internalFiber = internalFiber;
+            internalFiber.node = elem;
+            internalFiber.child = this.createInternalFiber(elem.render());
 
         } else {
             children = element.children
@@ -52,6 +59,25 @@ const LemonTree = {
         }
 
         return internalFiber;
+
+    },
+
+    tagCount: 0,
+
+    compareFiber : function(fiber1,fiber2){
+
+        var res = {};
+
+        if(fiber1.type!=fiber2.type){
+
+            res.push({message:"replace"});
+
+        }
+
+        while(fiber1!=null){
+
+            
+        }
 
     }
 
